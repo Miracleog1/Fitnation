@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>FitNation — Get Fit, Live Better</title>
+<meta name="description" content="FitNation gym: memberships, classes, trainers and merch. Join today.">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+     SNIPCART — powers the real shopping cart & checkout below.
+     Snipcart connects to Stripe/PayPal for you with zero backend.
+     1) Create a free account at https://snipcart.com
+     2) Get your PUBLIC API key from Dashboard > Account > API Keys
+     3) Replace YOUR_SNIPCART_PUBLIC_API_KEY below
+     ============================================================ -->
+<link rel="preconnect" href="https://app.snipcart.com">
+<link rel="preconnect" href="https://cdn.snipcart.com">
+<link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.7.1/default/snipcart.css" />
+
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --bg-card:#141414;
+    --bg-card-alt:#1b1b1b;
+    --line: rgba(255,255,255,0.08);
+    --lime:#9EFF1F;
+    --lime-dim:#7ACC00;
+    --white:#f5f5f5;
+    --muted:#9a9a9a;
+    --muted-2:#707070;
+    --radius: 18px;
+    --wrap: 1200px;
+    --font-head: 'Sora', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+  /* ============================================================
+     CODE MAP — jump to a section by searching its comment below:
+     NAV        → header / mobile menu
+     HERO       → top banner
+     SERVICES   → "Transform Your Fitness Journey"
+     FACILITY   → gym carousel + location
+     PLANS      → membership pricing / Stripe checkout
+     SCHEDULE   → class timetable
+     TRAINERS   → coach grid
+     SHOP       → merch cards / Snipcart cart
+     TESTIMONIALS, FAQ, CONTACT, FINAL CTA, FOOTER
+     Each block below is self-contained: edit colors/spacing for one
+     section without touching the others.
+     ============================================================ */
+  *{margin:0;padding:0;box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
+  body{
+    background:var(--bg);
+    color:var(--white);
+    font-family:var(--font-body);
+    line-height:1.6;
+    overflow-x:hidden;
+    width:100%;
+  }
+  /* Touch targets: keep every tappable control at least 44px tall on
+     any screen — the mobile OS accessibility minimum. */
+  button, a.btn, .icon-btn, input, textarea{ min-height:44px; }
+  .icon-btn{ min-width:44px; }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  .wrap{max-width:var(--wrap); margin:0 auto; padding:0 24px;}
+  h1,h2,h3,h4{font-family:var(--font-head); font-weight:700; letter-spacing:-0.02em; line-height:1.08;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--lime); margin-bottom:14px;
+  }
+  .eyebrow::before{content:""; width:8px; height:8px; border-radius:50%; background:var(--lime); box-shadow:0 0 12px var(--lime);}
+  .section{padding:100px 0;}
+  @media (max-width:768px){ .section{padding:64px 0;} }
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:32px; margin-bottom:48px; flex-wrap:wrap;}
+  .section-head p{color:var(--muted); max-width:420px; font-size:15px;}
+  .section-head h2{font-size:clamp(28px,4vw,42px);}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    padding:14px 26px; border-radius:100px; font-weight:600; font-size:14.5px;
+    border:1px solid transparent; cursor:pointer; transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    font-family:var(--font-body); white-space:nowrap;
+  }
+  .btn:active{transform:scale(0.97);}
+  .btn-lime{background:var(--lime); color:#0a0a0a;}
+  .btn-lime:hover{box-shadow:0 8px 24px rgba(158,255,31,0.35); transform:translateY(-2px);}
+  .btn-outline{border-color:rgba(255,255,255,0.25); color:var(--white); background:transparent;}
+  .btn-outline:hover{border-color:var(--lime); color:var(--lime);}
+  .btn-block{width:100%;}
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:1000;
+    background:rgba(10,10,10,0.85); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:18px 24px;}
+  .logo{display:flex; align-items:center; gap:10px; font-family:var(--font-head); font-weight:800; font-size:20px;}
+  .logo .mark{
+    width:34px; height:34px; border-radius:9px; background:var(--lime);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .logo .mark svg{width:20px; height:20px;}
+  .logo small{display:block; font-family:var(--font-body); font-weight:600; font-size:8px; letter-spacing:0.12em; color:var(--muted); text-transform:uppercase; margin-top:-2px;}
+  .nav-links{display:flex; align-items:center; gap:36px; font-size:14.5px; font-weight:500;}
+  .nav-links a{color:#d8d8d8; transition:color .15s;}
+  .nav-links a:hover{color:var(--lime);}
+  .nav-right{display:flex; align-items:center; gap:14px;}
+  .icon-btn{
+    width:40px; height:40px; border-radius:50%; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; background:transparent; cursor:pointer; color:var(--white);
+  }
+  .icon-btn:hover{border-color:var(--lime); color:var(--lime);}
+  .burger{display:none; flex-direction:column; gap:5px; width:26px; cursor:pointer; background:none; border:none;}
+  .burger span{height:2px; background:var(--white); border-radius:2px; transition:.2s;}
+  .mobile-menu{
+    display:none; flex-direction:column; gap:2px; padding:8px 24px 20px;
+    background:var(--bg); border-bottom:1px solid var(--line);
+  }
+  .mobile-menu a{padding:14px 4px; border-bottom:1px solid var(--line); font-size:15px;}
+  @media (max-width:900px){
+    .nav-links{display:none;}
+    .burger{display:flex;}
+  }
+  @media (max-width:480px){
+    /* Nav gets crowded at phone widths: cart, Join Now, and burger all
+       compete for space — drop the button label and keep the icons. */
+    .nav{padding:14px 16px;}
+    .nav-right .btn{padding:0; width:44px; height:44px; border-radius:50%; font-size:0;}
+    .nav-right .btn::after{content:"→"; font-size:16px;}
+    .logo{font-size:17px; gap:8px;}
+    .logo .mark{width:30px; height:30px;}
+    .logo small{font-size:7px;}
+  }
+
+  /* HERO */
+  .hero{position:relative; overflow:hidden; padding-top:70px;}
+  .hero-grid{
+    display:grid; grid-template-columns:1.1fr 1fr; gap:20px; align-items:stretch;
+    min-height:640px;
+  }
+  .hero-copy{padding:70px 8px 40px 0; display:flex; flex-direction:column; justify-content:center; gap:22px;}
+  .hero-copy h1{font-size:clamp(36px,5.6vw,60px);}
+  .hero-copy h1 span{color:var(--lime);}
+  .hero-copy p{color:var(--muted); max-width:420px; font-size:16px;}
+  .hero-cta{display:flex; gap:14px; align-items:center; flex-wrap:wrap;}
+  .price-pill{
+    background:transparent; border:1px solid rgba(255,255,255,0.25);
+    padding:14px 10px 14px 22px; border-radius:100px; display:flex; align-items:center; gap:10px;
+  }
+  .price-pill b{background:var(--lime); color:#0a0a0a; border-radius:100px; padding:8px 14px; font-size:13px; font-weight:700;}
+  .hero-social{display:flex; align-items:center; gap:14px; margin-top:6px;}
+  .avatars{display:flex;}
+  .avatars img{width:36px; height:36px; border-radius:50%; border:2px solid var(--bg); object-fit:cover; margin-left:-10px;}
+  .avatars img:first-child{margin-left:0;}
+  .hero-social .stat b{font-family:var(--font-head); font-size:20px; display:block;}
+  .hero-social .stat span{font-size:12px; color:var(--muted);}
+  .hero-img-wrap{position:relative; border-radius:var(--radius); overflow:hidden;}
+  .hero-img-wrap img{width:100%; height:100%; object-fit:cover; min-height:420px;}
+  .hero-img-wrap::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,10,10,0) 40%, rgba(10,10,10,0.55) 100%);
+  }
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr; min-height:auto;}
+    .hero-copy{padding:36px 0 8px;}
+    .hero-img-wrap img{min-height:280px;}
+  }
+
+  /* TRANSFORM / SERVICES */
+  .services-grid{display:grid; grid-template-columns:1.6fr repeat(3,1fr); gap:18px;}
+  .service-card{
+    position:relative; border-radius:var(--radius); overflow:hidden; min-height:420px;
+    background:var(--bg-card); display:flex; flex-direction:column; justify-content:flex-end;
+  }
+  .service-card img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.85; transition:transform .5s ease;}
+  .service-card:hover img{transform:scale(1.06);}
+  .service-card::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,10,0.05) 30%, rgba(10,10,10,0.92) 100%);}
+  .service-tag{
+    position:absolute; top:16px; left:16px; z-index:2; width:40px; height:40px; border-radius:10px;
+    background:var(--lime); display:flex; align-items:center; justify-content:center; color:#0a0a0a;
+  }
+  .service-body{position:relative; z-index:2; padding:22px;}
+  .service-body h3{font-size:20px; margin-bottom:6px;}
+  .service-body p{font-size:13.5px; color:#cfcfcf; max-width:260px;}
+  .service-card.vertical{min-height:420px;}
+  .service-card.vertical .service-body h3{
+    writing-mode:vertical-rl; transform:rotate(180deg); font-size:15px; letter-spacing:0.1em; text-transform:uppercase; height:120px;
+  }
+  @media (max-width:960px){
+    .services-grid{grid-template-columns:1fr 1fr;}
+    .service-card{min-height:320px;}
+  }
+  @media (max-width:600px){ .services-grid{grid-template-columns:1fr;} }
+
+  /* COMFORTABLE GYM / LOCATION */
+  .gym-grid{display:grid; grid-template-columns:1fr 1.2fr; gap:24px; align-items:center;}
+  .gym-copy p{color:var(--muted); margin:14px 0 26px; max-width:340px;}
+  .carousel-controls{display:flex; gap:10px; margin-bottom:20px;}
+  .carousel-btn{
+    width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background:transparent;
+    display:flex; align-items:center; justify-content:center; color:var(--white); cursor:pointer;
+  }
+  .carousel-btn:hover{background:var(--lime); border-color:var(--lime); color:#0a0a0a;}
+  .carousel-frame{border-radius:var(--radius); overflow:hidden; aspect-ratio:4/3;}
+  .carousel-frame img{width:100%; height:100%; object-fit:cover; transition:opacity .4s ease;}
+  .location-card{
+    position:relative; border-radius:var(--radius); overflow:hidden; min-height:360px;
+    background:var(--bg-card); display:flex; flex-direction:column; justify-content:flex-end;
+  }
+  .location-card img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .location-card::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,10,0.1) 30%, rgba(10,10,10,0.9) 100%);}
+  .location-pin{position:absolute; top:18px; right:18px; z-index:2; width:42px; height:42px; border-radius:12px; background:var(--lime); display:flex; align-items:center; justify-content:center; color:#0a0a0a;}
+  .location-body{position:relative; z-index:2; padding:24px; display:flex; justify-content:space-between; align-items:flex-end; gap:16px; flex-wrap:wrap;}
+  .location-body h3{font-size:22px;}
+  .location-body address{font-style:normal; font-size:13.5px; color:#cfcfcf; text-align:right;}
+  @media (max-width:860px){ .gym-grid{grid-template-columns:1fr;} }
+
+  /* MEMBERSHIP PLANS */
+  .plans-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .plan-card{
+    background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:34px 28px; display:flex; flex-direction:column; gap:20px; position:relative;
+  }
+  .plan-card.featured{border-color:var(--lime); background:linear-gradient(180deg, rgba(158,255,31,0.08), var(--bg-card) 40%);}
+  .plan-badge{
+    position:absolute; top:-13px; right:28px; background:var(--lime); color:#0a0a0a;
+    font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:6px 14px; border-radius:100px;
+  }
+  .plan-name{font-family:var(--font-head); font-size:20px; font-weight:700;}
+  .plan-price{display:flex; align-items:baseline; gap:6px;}
+  .plan-price b{font-family:var(--font-head); font-size:44px;}
+  .plan-price span{color:var(--muted); font-size:14px;}
+  .plan-features{display:flex; flex-direction:column; gap:12px; font-size:14px; color:#d0d0d0; flex:1;}
+  .plan-features li{display:flex; gap:10px; align-items:flex-start;}
+  .plan-features li svg{flex-shrink:0; margin-top:3px; color:var(--lime);}
+  @media (max-width:900px){ .plans-grid{grid-template-columns:1fr;} }
+
+  /* SCHEDULE */
+  .schedule-table{width:100%; border-collapse:collapse; overflow:hidden; border-radius:var(--radius);}
+  .schedule-table th{
+    background:var(--bg-card-alt); color:var(--lime); font-size:12px; text-transform:uppercase; letter-spacing:.08em;
+    padding:16px 14px; text-align:left; font-weight:700;
+  }
+  .schedule-table td{padding:16px 14px; border-top:1px solid var(--line); font-size:14px; color:#d8d8d8; background:var(--bg-card);}
+  .schedule-table tr td:first-child{color:var(--white); font-weight:600;}
+  .schedule-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line); border-radius:var(--radius);}
+  .schedule-table{border-radius:0; min-width:620px;} /* forces horizontal scroll instead of squashed columns on phones */
+
+  /* TRAINERS */
+  .trainers-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .trainer-card{background:var(--bg-card); border-radius:var(--radius); overflow:hidden;}
+  .trainer-card img{width:100%; aspect-ratio:3/4; object-fit:cover;}
+  .trainer-body{padding:16px 18px 20px;}
+  .trainer-body h4{font-size:16px;}
+  .trainer-body span{color:var(--lime); font-size:12.5px; font-weight:600;}
+  @media (max-width:960px){ .trainers-grid{grid-template-columns:1fr 1fr;} }
+
+  /* MERCH / SHOP */
+  .merch-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  .product-card{background:var(--bg-card); border-radius:var(--radius); overflow:hidden; border:1px solid var(--line);}
+  .product-img{aspect-ratio:1/1; background:#101010; display:flex; align-items:center; justify-content:center; overflow:hidden;}
+  .product-img img{width:100%; height:100%; object-fit:cover;}
+  .product-info{padding:18px;}
+  .product-info h4{font-size:15px; margin-bottom:4px;}
+  .product-info .price{color:var(--lime); font-weight:700; font-family:var(--font-head); font-size:17px; margin-bottom:12px; display:block;}
+  @media (max-width:960px){ .merch-grid{grid-template-columns:1fr 1fr;} }
+
+  /* TESTIMONIALS */
+  .testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .testi-card{background:var(--bg-card); border-radius:var(--radius); padding:26px; border:1px solid var(--line);}
+  .testi-stars{color:var(--lime); font-size:14px; margin-bottom:14px; letter-spacing:2px;}
+  .testi-card p{font-size:14.5px; color:#d6d6d6; margin-bottom:20px;}
+  .testi-person{display:flex; align-items:center; gap:12px;}
+  .testi-person img{width:44px; height:44px; border-radius:50%; object-fit:cover;}
+  .testi-person b{display:block; font-size:14px;}
+  .testi-person span{font-size:12px; color:var(--muted);}
+  @media (max-width:900px){ .testi-grid{grid-template-columns:1fr;} }
+
+  /* FAQ */
+  .faq-list{max-width:760px; margin:0 auto;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; color:var(--white); cursor:pointer;
+    padding:22px 4px; display:flex; justify-content:space-between; align-items:center; font-family:var(--font-head); font-size:16px; font-weight:600;
+  }
+  .faq-q svg{transition:transform .25s ease; flex-shrink:0; color:var(--lime);}
+  .faq-item.open .faq-q svg{transform:rotate(45deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+  .faq-a p{padding:0 4px 22px; color:var(--muted); font-size:14.5px; max-width:640px;}
+
+  /* CONTACT / NEWSLETTER */
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px;}
+  .form-field{display:flex; flex-direction:column; gap:8px; margin-bottom:16px;}
+  .form-field label{font-size:12.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;}
+  .form-field input, .form-field textarea{
+    /* font-size must stay >=16px or iOS Safari auto-zooms into the field on focus */
+    background:var(--bg-card); border:1px solid var(--line); border-radius:10px; padding:13px 16px;
+    color:var(--white); font-family:var(--font-body); font-size:16px; width:100%;
+  }
+  .form-field input:focus, .form-field textarea:focus{outline:2px solid var(--lime); border-color:var(--lime);}
+  .form-note{font-size:12px; color:var(--muted-2); margin-top:10px;}
+
+  /* FINAL CTA */
+  .final-cta{
+    position:relative; border-radius:var(--radius); overflow:hidden; padding:70px 40px; text-align:left;
+    display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
+  }
+  .final-cta img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .final-cta::after{content:""; position:absolute; inset:0; background:linear-gradient(90deg, rgba(10,10,10,0.92) 30%, rgba(10,10,10,0.5) 100%);}
+  .final-cta-content{position:relative; z-index:2;}
+  .final-cta h2{font-size:clamp(28px,4vw,40px); margin-bottom:20px;}
+  .final-cta-actions{position:relative; z-index:2; display:flex; gap:14px; flex-wrap:wrap;}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line); padding:50px 0 26px;}
+  .footer-top{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; padding-bottom:36px;}
+  .footer-links{display:flex; gap:28px; font-size:14px; color:#c9c9c9; flex-wrap:wrap;}
+  .footer-links a:hover{color:var(--lime);}
+  .footer-social{display:flex; gap:10px;}
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center; padding-top:24px; border-top:1px solid var(--line);
+    font-size:13px; color:var(--muted-2); flex-wrap:wrap; gap:12px;
+  }
+
+  /* utility */
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;}
+  @media (max-width:860px){ .grid-2{grid-template-columns:1fr;} }
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(120%);
+    background:var(--lime); color:#0a0a0a; padding:14px 22px; border-radius:100px; font-weight:600; font-size:14px;
+    transition:transform .35s ease; z-index:2000;
+  }
+  .toast.show{transform:translateX(-50%) translateY(0);}
+  ::selection{background:var(--lime); color:#0a0a0a;}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <nav class="nav wrap">
+    <a href="#top" class="logo">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12c0-4.4 3.6-8 8-8M20 12c0 4.4-3.6 8-8 8" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round"/></svg>
+      </span>
+      <span>fitnation<small>GET FIT, LIVE BETTER</small></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#facility">Facility</a></li>
+      <li><a href="#plans">Membership</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#shop">Merch</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn snipcart-checkout" aria-label="Cart">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.8h7.2a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+      </button>
+      <a href="#plans" class="btn btn-lime" style="padding:11px 20px;">Join Now</a>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Services</a>
+    <a href="#facility">Facility</a>
+    <a href="#plans">Membership</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#shop">Merch</a>
+    <a href="#contact">Contact</a>
+  </div>
+</header>
+
+<div id="top"></div>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">FitNation Gym</div>
+        <h1>Unleash Your <span>Inner Athlete</span></h1>
+        <p>We are dedicated to helping you transform your body and mind through the power of fitness — real coaches, real programs, real results.</p>
+        <div class="hero-cta">
+          <div class="price-pill"><span>Join Now</span><b>$49/month</b></div>
+          <a href="#plans" class="btn btn-outline">Join Free Trial</a>
+        </div>
+        <div class="hero-social">
+          <div class="avatars">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=80&h=80&fit=crop&crop=faces" alt="">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=faces" alt="">
+            <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=80&h=80&fit=crop&crop=faces" alt="">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop&crop=faces" alt="">
+          </div>
+          <div class="stat"><b>500+</b><span>Members happy</span></div>
+        </div>
+      </div>
+      <div class="hero-img-wrap">
+        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1000&q=80" alt="Athlete training">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Transform Your<br>Fitness Journey</h2>
+      <p>Offers customized workout programs designed to help clients achieve their fitness goals, such as weight loss, strength and conditioning, and body shaping.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-tag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=700&q=80" alt="Gym floor">
+        <div class="service-body">
+          <h3>Gym</h3>
+          <p>We offer a wide range of state-of-the-art equipment and facilities to help you get in the best shape of your life.</p>
+        </div>
+      </div>
+      <div class="service-card vertical">
+        <span class="service-tag"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><circle cx="12" cy="5" r="2"/><path d="M12 7v6l-3 7M12 13l3 7M8 11l4-2 4 2"/></svg></span>
+        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=500&q=80" alt="Zumba class">
+        <div class="service-body"><h3>Zumba</h3></div>
+      </div>
+      <div class="service-card vertical">
+        <span class="service-tag"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><circle cx="12" cy="5" r="2"/><path d="M9 9l3-2 3 2v5l3 6M12 12l-3 6"/></svg></span>
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&q=80" alt="Yoga class">
+        <div class="service-body"><h3>Yoga</h3></div>
+      </div>
+      <div class="service-card vertical">
+        <span class="service-tag"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><circle cx="12" cy="5" r="2"/><path d="M12 7l-4 3 2 2-3 5M12 7l4 3-2 6"/></svg></span>
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500&q=80" alt="Martial arts">
+        <div class="service-body"><h3>Martial Art</h3></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FACILITY / LOCATION ================= -->
+<section class="section" id="facility">
+  <div class="wrap">
+    <div class="gym-grid">
+      <div class="gym-copy">
+        <h2>Comfortable Gym</h2>
+        <p>Our facilities provide the perfect setting to help you reach your fitness goals.</p>
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="prevSlide" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button class="carousel-btn" id="nextSlide" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+        <div class="carousel-frame">
+          <img id="carouselImg" src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=700&q=80" alt="Gym equipment">
+        </div>
+      </div>
+      <div class="location-card">
+        <span class="location-pin"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
+        <img src="https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?w=900&q=80" alt="FitNation building">
+        <div class="location-body">
+          <h3>Location</h3>
+          <address>1234 Fitness Avenue<br>London, CA 90001</address>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MEMBERSHIP PLANS (REAL CHECKOUT) ================= -->
+<section class="section" id="plans">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Membership Plans</h2>
+      <p>Pick a plan and pay securely — checkout is powered by Stripe.</p>
+    </div>
+    <div class="plans-grid">
+
+      <div class="plan-card">
+        <div class="plan-name">Basic</div>
+        <div class="plan-price"><b>$29</b><span>/ month</span></div>
+        <ul class="plan-features">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Full gym floor access</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Locker room access</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> 1 free trainer session</li>
+        </ul>
+        <!-- Replace href with your own Stripe Payment Link (Stripe Dashboard > Payment Links) -->
+        <a class="btn btn-outline btn-block" href="https://buy.stripe.com/REPLACE_BASIC_LINK" target="_blank" rel="noopener">Choose Basic</a>
+      </div>
+
+      <div class="plan-card featured">
+        <span class="plan-badge">Most popular</span>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price"><b>$49</b><span>/ month</span></div>
+        <ul class="plan-features">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Everything in Basic</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Unlimited group classes</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Nutrition plan included</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> 4 trainer sessions / mo</li>
+        </ul>
+        <a class="btn btn-lime btn-block" href="https://buy.stripe.com/REPLACE_PRO_LINK" target="_blank" rel="noopener">Choose Pro</a>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-name">Elite</div>
+        <div class="plan-price"><b>$89</b><span>/ month</span></div>
+        <ul class="plan-features">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Everything in Pro</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Unlimited 1-on-1 coaching</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Recovery suite access</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Free merch every quarter</li>
+        </ul>
+        <a class="btn btn-outline btn-block" href="https://buy.stripe.com/REPLACE_ELITE_LINK" target="_blank" rel="noopener">Choose Elite</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= CLASS SCHEDULE ================= -->
+<section class="section" id="schedule">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Class Schedule</h2>
+      <p>Drop into any class included in your membership tier — no extra booking fees.</p>
+    </div>
+    <div class="schedule-wrap">
+      <table class="schedule-table">
+        <thead>
+          <tr><th>Class</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Zumba</td><td>7:00 AM</td><td>—</td><td>7:00 AM</td><td>—</td><td>7:00 AM</td><td>9:00 AM</td></tr>
+          <tr><td>Yoga</td><td>6:00 PM</td><td>8:00 AM</td><td>6:00 PM</td><td>8:00 AM</td><td>6:00 PM</td><td>10:00 AM</td></tr>
+          <tr><td>Martial Art</td><td>—</td><td>7:00 PM</td><td>—</td><td>7:00 PM</td><td>—</td><td>11:00 AM</td></tr>
+          <tr><td>Strength Lab</td><td>6:00 AM</td><td>6:00 AM</td><td>6:00 AM</td><td>6:00 AM</td><td>6:00 AM</td><td>8:00 AM</td></tr>
+          <tr><td>HIIT Circuit</td><td>12:00 PM</td><td>—</td><td>12:00 PM</td><td>—</td><td>12:00 PM</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRAINERS ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Meet Your Coaches</h2>
+      <p>Certified trainers who design programs around your goals, not the other way around.</p>
+    </div>
+    <div class="trainers-grid">
+      <div class="trainer-card">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80" alt="Trainer">
+        <div class="trainer-body"><h4>Marcus Lee</h4><span>Strength & Conditioning</span></div>
+      </div>
+      <div class="trainer-card">
+        <img src="https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=500&q=80" alt="Trainer">
+        <div class="trainer-body"><h4>Amara Cole</h4><span>Yoga & Mobility</span></div>
+      </div>
+      <div class="trainer-card">
+        <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=500&q=80" alt="Trainer">
+        <div class="trainer-body"><h4>Diego Ruiz</h4><span>Martial Arts</span></div>
+      </div>
+      <div class="trainer-card">
+        <img src="https://images.unsplash.com/photo-1609899537878-88d5ba429bdb?w=500&q=80" alt="Trainer">
+        <div class="trainer-body"><h4>Priya Nair</h4><span>Zumba & Cardio</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SHOP (REAL CART VIA SNIPCART) ================= -->
+<section class="section" id="shop">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Get Fit in Style with<br>FitNation Merchandise</h2>
+      <p>We believe that looking good and feeling good go hand in hand. Add to cart and check out securely below.</p>
+    </div>
+    <div class="merch-grid">
+
+      <div class="product-card">
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&q=80" alt="Water bottles"></div>
+        <div class="product-info">
+          <h4>FitNation Water Bottle</h4>
+          <span class="price">$18.00</span>
+          <button class="btn btn-lime btn-block snipcart-add-item"
+            data-item-id="fitnation-bottle"
+            data-item-price="18.00"
+            data-item-url="/index.html"
+            data-item-description="FitNation branded 750ml water bottle"
+            data-item-name="FitNation Water Bottle"
+            data-item-image="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&q=80">
+            Add to cart
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1622260614153-03223fb61cc0?w=500&q=80" alt="Gym bag"></div>
+        <div class="product-info">
+          <h4>FitNation Gym Bag</h4>
+          <span class="price">$42.00</span>
+          <button class="btn btn-lime btn-block snipcart-add-item"
+            data-item-id="fitnation-bag"
+            data-item-price="42.00"
+            data-item-url="/index.html"
+            data-item-description="Durable gym duffel with FitNation logo"
+            data-item-name="FitNation Gym Bag"
+            data-item-image="https://images.unsplash.com/photo-1622260614153-03223fb61cc0?w=500&q=80">
+            Add to cart
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=500&q=80" alt="Gym jacket"></div>
+        <div class="product-info">
+          <h4>FitNation Jacket</h4>
+          <span class="price">$64.00</span>
+          <button class="btn btn-lime btn-block snipcart-add-item"
+            data-item-id="fitnation-jacket"
+            data-item-price="64.00"
+            data-item-url="/index.html"
+            data-item-description="Lightweight performance jacket"
+            data-item-name="FitNation Jacket"
+            data-item-image="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=500&q=80">
+            Add to cart
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80" alt="Tee"></div>
+        <div class="product-info">
+          <h4>FitNation Performance Tee</h4>
+          <span class="price">$28.00</span>
+          <button class="btn btn-lime btn-block snipcart-add-item"
+            data-item-id="fitnation-tee"
+            data-item-price="28.00"
+            data-item-url="/index.html"
+            data-item-description="Moisture-wicking training tee"
+            data-item-name="FitNation Performance Tee"
+            data-item-image="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80">
+            Add to cart
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Real Members, Real Results</h2>
+      <p>Don't just take our word for it.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>I've tried three other gyms in the area. FitNation is the first one where the coaches actually know my name and my goals.</p>
+        <div class="testi-person">
+          <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=100&q=80" alt="">
+          <div><b>Jordan M.</b><span>Member since 2024</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>Down 22 lbs since I joined the Pro plan. The nutrition plan alone was worth the membership.</p>
+        <div class="testi-person">
+          <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=100&q=80" alt="">
+          <div><b>Sofia R.</b><span>Pro member</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>The martial arts class schedule fits perfectly around my work hours. Clean facility, great energy.</p>
+        <div class="testi-person">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="">
+          <div><b>Tariq H.</b><span>Elite member</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head" style="justify-content:center; text-align:center; flex-direction:column; align-items:center;">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list" id="faqList">
+      <div class="faq-item">
+        <button class="faq-q">Can I cancel my membership anytime? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="faq-a"><p>Yes. All plans are month-to-month with no long-term contract — cancel from your Stripe billing portal at any time.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you offer a free trial? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="faq-a"><p>Yes — a 7-day free trial is available for new members. Tap "Join Free Trial" at the top of the page.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is merchandise available to non-members? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="faq-a"><p>Merch ships to anyone, anywhere — no membership required to shop the store.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What's included in a trainer session? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="faq-a"><p>A 45-minute 1-on-1 session covering form check, program adjustment, and progress tracking.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <h2 style="font-size:clamp(26px,3.4vw,36px); margin-bottom:14px;">Get in touch</h2>
+        <p style="color:var(--muted); max-width:380px; margin-bottom:24px;">Questions about a plan, a class, or your order? Send us a message and we'll reply within one business day.</p>
+        <!-- Contact form: uses Formspree (free) for real email delivery, no backend needed.
+             1) Create a form at https://formspree.io
+             2) Replace YOUR_FORM_ID below -->
+        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form-field"><label for="name">Name</label><input id="name" name="name" type="text" required></div>
+          <div class="form-field"><label for="email">Email</label><input id="email" name="email" type="email" required></div>
+          <div class="form-field"><label for="message">Message</label><textarea id="message" name="message" rows="4" required></textarea></div>
+          <button class="btn btn-lime btn-block" type="submit">Send message</button>
+          <p class="form-note">Replace YOUR_FORM_ID with your real Formspree form ID before publishing.</p>
+        </form>
+      </div>
+      <div>
+        <h2 style="font-size:clamp(26px,3.4vw,36px); margin-bottom:14px;">Stay in the loop</h2>
+        <p style="color:var(--muted); max-width:380px; margin-bottom:24px;">Get workout tips, new class drops, and merch restocks in your inbox.</p>
+        <form id="newsletterForm">
+          <div class="form-field"><label for="nemail">Email address</label><input id="nemail" type="email" required placeholder="you@example.com"></div>
+          <button class="btn btn-outline btn-block" type="submit">Subscribe</button>
+          <p class="form-note">Connect this form to Mailchimp / ConvertKit / Klaviyo for real delivery — see the setup guide.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="final-cta">
+      <img src="https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=1200&q=80" alt="">
+      <div class="final-cta-content">
+        <h2>Let's Join<br>Membership</h2>
+      </div>
+      <div class="final-cta-actions">
+        <a href="#plans" class="btn btn-lime">Join Now</a>
+        <a href="#plans" class="btn btn-outline">Join Free Trial</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <a href="#top" class="logo">
+        <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12c0-4.4 3.6-8 8-8M20 12c0 4.4-3.6 8-8 8" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round"/></svg></span>
+        <span>fitnation<small>GET FIT, LIVE BETTER</small></span>
+      </a>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#facility">Facility</a>
+        <a href="#shop">Merchandise</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-social">
+        <a class="icon-btn" href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a class="icon-btn" href="#" aria-label="TikTok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 4v9.5a3.5 3.5 0 1 1-3-3.46M14 4c.5 2 2 3.5 4 4"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 FitNation. All rights reserved.</span>
+      <a href="#" style="text-decoration:underline;">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<!-- toast for demo actions -->
+<div class="toast" id="toast"></div>
+
+<!-- ============================================================
+     SNIPCART SDK — the real cart engine.
+     Replace data-api-key with your own public key from snipcart.com
+     ============================================================ -->
+<div hidden id="snipcart" data-api-key="YOUR_SNIPCART_PUBLIC_API_KEY"></div>
+<script async src="https://cdn.snipcart.com/themes/v3.7.1/default/snipcart.js"></script>
+
+<script>
+  // mobile menu
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', ()=>{
+    mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(a=>{
+    a.addEventListener('click', ()=> mobileMenu.style.display='none');
+  });
+
+  // gym carousel
+  const slides = [
+    "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=700&q=80",
+    "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=700&q=80",
+    "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=700&q=80",
+    "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=700&q=80"
+  ];
+  let slideIndex = 0;
+  const carouselImg = document.getElementById('carouselImg');
+  function showSlide(i){
+    carouselImg.style.opacity = 0;
+    setTimeout(()=>{ carouselImg.src = slides[i]; carouselImg.style.opacity = 1; }, 200);
+  }
+  document.getElementById('nextSlide').addEventListener('click', ()=>{
+    slideIndex = (slideIndex+1) % slides.length; showSlide(slideIndex);
+  });
+  document.getElementById('prevSlide').addEventListener('click', ()=>{
+    slideIndex = (slideIndex-1+slides.length) % slides.length; showSlide(slideIndex);
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>{
+        i.classList.remove('open');
+        i.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // toast helper
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(()=> t.classList.remove('show'), 2400);
+  }
+
+  // newsletter (demo — wire to real ESP via the setup guide)
+  document.getElementById('newsletterForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    showToast('Subscribed! (connect a real email service — see setup guide)');
+    this.reset();
+  });
+</script>
+
+</body>
+</html>
